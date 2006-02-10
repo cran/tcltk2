@@ -1,0 +1,2 @@
+echo "Package 'tcltk2' can only be installed/used under Windows currently!"
+exit 1
