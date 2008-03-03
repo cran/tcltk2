@@ -8,7 +8,8 @@
 
 \title{ Use DDE (Dynamic Data Exchange) under Windows }
 \description{
-  These functions are Windows-specific. They issue an error under a different platform.
+  These functions are Windows-specific. They issue an error under a different
+  platform.
 }
 \synopsis{
     tk2dde(topic = NULL)

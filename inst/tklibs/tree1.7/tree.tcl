@@ -1,4 +1,7 @@
 #!/usr/bin/wish
+# Philippe Grosjean (phgrosjean@sciviews.org): some adaptations of
+# the original code were required to use it with the tcltk2 package under R
+
 #
 # I am D. Richard Hipp, the author of this code.  I hereby
 # disavow all claims to copyright on this program and release
@@ -35,16 +38,43 @@
 #
 option add *highlightThickness 0
 
-switch $tcl_platform(platform) {
-  unix {
-    set Tree(font) \
-      -adobe-helvetica-medium-r-normal-*-11-80-100-100-p-56-iso8859-1
-  }
-  windows {
-    set Tree(font) \
-      -adobe-helvetica-medium-r-normal-*-14-100-100-100-p-76-iso8859-1
+#switch $tcl_platform(platform) {
+#  unix {
+#    set Tree(font) \
+#      -adobe-helvetica-medium-r-normal-*-11-80-100-100-p-56-iso8859-1
+#  }
+#  windows {
+#    set Tree(font) \
+#      -adobe-helvetica-medium-r-normal-*-14-100-100-100-p-76-iso8859-1
+#  }
+#}
+
+# This font is inspired from tile
+# Make sure that TkDefaultFont is defined
+if {[lsearch [font names] TkDefaultFont] == -1} {
+  catch {font create TkDefaultFont}
+  switch -- [tk windowingsystem] {
+    win32 {
+      if {$tcl_platform(osVersion) >= 5.0} {
+        font configure TkDefaultFont -family "Tahoma" -size -11
+      } else {
+        font configure TkDefaultFont -family "MS Sans Serif" -size -11
+      }
+    }
+    classic -
+    aqua {
+      font configure TkDefaultFont -family "Lucida Grande" -size 13
+    }
+    x11 {
+      if {![catch {tk::pkgconfig get fontsystem} fs] && $fs eq "xft"} {
+        font configure TkDefaultFont -family "sans-serif" -size -12
+      } else {
+        font configure TkDefaultFont -family "Helvetica" -size -12	    
+      }
+    }
   }
 }
+set Tree(font) TkDefaultFont
 
 #
 # Create a new tree widget.  $args become the configuration arguments to
@@ -118,19 +148,26 @@ proc Tree:delitem {w v} {
       unset Tree($t)
     }
   }
+  catch {
   foreach c $Tree($w:$v:children) {
-    catch {Tree:delitem $w $v/$c}
+    Tree:delitem $w $v/$c
   }
-  unset Tree($w:$v:open)
-  unset Tree($w:$v:children)
-  unset Tree($w:$v:icon)
+  }
+  catch {unset Tree($w:$v:open)}
+  catch {unset Tree($w:$v:children)}
+  catch {unset Tree($w:$v:icon)}
   set dir [file dirname $v]
   set n [file tail $v]
+  if [catch {
   set i [lsearch -exact $Tree($w:$dir:children) $n]
   if {$i>=0} {
     set Tree($w:$dir:children) [lreplace $Tree($w:$dir:children) $i $i]
   }
-  Tree:buildwhenidle $w
+  } id] {
+  
+  } else {
+  	Tree:buildwhenidle $w
+  }
 }
 
 #
@@ -201,6 +238,7 @@ proc Tree:buildlayer {w v in} {
     set vx $v
   }
   set start [expr $Tree($w:y)-10]
+  set y 0
   foreach c $Tree($w:$v:children) {
     set y $Tree($w:y)
     incr Tree($w:y) 17

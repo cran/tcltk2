@@ -22,7 +22,7 @@
   tk2reg.get(keyname, valuename)
   tk2reg.keys(keyname)
   tk2reg.set(keyname, valuename, data, type = c("sz", "expand_sz", "multi_sz",
-      "dword", "dword_big_endian", "binary", "link", "resource_list", "none"))
+      "dword", "dword_big_endian"))
   tk2reg.setkey(keyname)
   tk2reg.type(keyname, valuename)
   tk2reg.values(keyname)

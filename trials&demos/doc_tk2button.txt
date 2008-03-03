@@ -1,0 +1,50 @@
+A tk2button is a widget used to trigger a command
+
+tk2button(parent, tip = "", use.tile = is.tile(), ...)
+
+v	- text: the text to display in the button
+v	- textvariable: the text to display in the button is provided in a variable
+	  (overrides text)
+v	- underline: 0-based index specifying which character to underline (for mnemonic
+	  activation)
+v	- image: the image to display on the button
+X	- compound: placement of text and image if both are present. Valid values are:
+	  + text: text only
+	  + image: image only
+	  + center: text centered on top of image
+	  + top, bottom, left, right: image to the top, ... of the text
+	  + none (default): display the image if present, otherwise the text
+x	- width: >0 => space in character width for text label, <0 => minimum width
+        Under Tk: size in character for text and in pixel for image
+	- cursor: mouse cursor to use, see Tk_GetCursor
+	- takefocus: 0, 1, does it take focus when using tab?
+	- style: custom style (which style is available?)
+	  + default: default style
+	  + tool: toolbar style
+	
+	- command: a script to evaluate when the widget is invoked
+x	- default: one of: (under Tk, it is -state normal|active|disabled)
+	  + normal: may become default
+	  + active: is the default button of a dialog box (when <Enter> is pressed)
+		Do set default text to "OK" (translated)
+		  Under Tk, use -default 0 or 1
+	  + disabled
+	  
+	  + cancel: the button associated with <Esc> (do set the default text to
+		"Cancel", translated)
+	  + help: the button associated with <F1> (do set the default text to
+		"Help, translated)
+	
+X	- tip: a tooltip to display
+	
+	Commands:
+v	- invoke: execute associated script (in Tk: ignored if the button is disabled)
+v	- cget option
+v	- configure ?option? ?value option value ...?
+X	- state ?stateSpec?
+	
+	Should we support this?
+X	- instate statespec ?script?
+
+
+  

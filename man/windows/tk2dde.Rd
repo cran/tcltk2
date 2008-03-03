@@ -4,23 +4,21 @@
 \alias{tk2dde.poke}
 \alias{tk2dde.request}
 \alias{tk2dde.services}
-\alias{.tk2dde.require}
 
 \title{ Use DDE (Dynamic Data Exchange) under Windows }
 \description{
   DDE is the first Microsoft's attempt to make an inter-application mechanism.
   It is now superseeded by (D)Com, but it is still available. Being simpler than
-  Com, DDE is interesting for simple tasks. Applications like Word, Excel, Windows
-  Explorer, Internet Explorer, etc... provide services one can access through DDE
-  (see examples).
+  Com, DDE is interesting for simple tasks. Applications like Word, Excel,
+  Windows Explorer, Internet Explorer, etc... provide services one can access
+  through DDE (see examples).
 }
 \usage{
-    tk2dde(topic = NULL)
-    tk2dde.services(service = "", topic = "")
-    tk2dde.exec(service, topic, command, async = FALSE)
-    tk2dde.poke(service, topic, item, data)
-    tk2dde.request(service, topic, item, binary = FALSE)
-    .tk2dde.require()
+tk2dde(topic = NULL)
+tk2dde.services(service = "", topic = "")
+tk2dde.exec(service, topic, command, async = FALSE)
+tk2dde.poke(service, topic, item, data)
+tk2dde.request(service, topic, item, binary = FALSE)
 }
 
 \arguments{
@@ -32,15 +30,16 @@
     returned, otherwise, only available topics for a given service are listed }
   \item{command}{ A string with the command to run in the external application
     (syntax depends on the server) }
-  \item{async}{ Is a command run asynchroneously (returns immediatelly, before the
-    command is processed), or not? }
-  \item{item}{ The concerned item (usually a variable name, a range in a worksheet,
-    etc...) }
+  \item{async}{ Is a command run asynchroneously (returns immediatelly, before
+    the command is processed), or not? }
+  \item{item}{ The concerned item (usually a variable name, a range in a
+    worksheet, etc...) }
   \item{data}{ The new value for the item }
   \item{binary}{ Should the return bez treated as binary data or not? }
 }
 
 \author{ Philippe Grosjean }
+
 \note{ This is only available under Windows. Trying to use these functions under
   other platforms raises an error. Under Windows, R is automatically configured
   as a DDE server with name TclEval|SciViewsR when this package is loaded }
@@ -48,188 +47,200 @@
 \seealso{ \code{\link{tk2reg}} }
 
 \examples{
-  \dontrun{
-    ## These cannot be run by examples() but should be OK when pasted
-    ## into an interactive R session with the tcltk package loaded
+\dontrun{
+## These cannot be run by examples() but should be OK when pasted
+## into an interactive R session with the tcltk package loaded
 
-	## Examples of DDE - Windows only
-    ###### Examples using wish
-    # Start a Wish84 console side-by-side with R.
-    # (to get wish, you need to install ActiveTcl from
-    # http://www.activestate.com/Products/ActiveTcl/)
-    # Once it is done, start 'Wish84' from the start menu)
-    # Register the Wish console as a DDE server, that is, type in it:
-    # \% package require dde
-    # \% dde servername wish
+## Examples of DDE - Windows only
 
-    # In R:
-    tk2dde("R") # Return 0 if succeed
-    tk2dde.services()
-    # Evaluate some string in wish
-    tk2dde.exec("TclEval", "wish", "{puts {Hello World!}}")
-    # Give a value to a variable in wish
-    tk2dde.poke("TclEval", "wish", "myvar", "This is a string!")
-    tk2dde.poke("TclEval", "wish", "mynumvar", 34.56)
+#### Examples using wish ####
+# Start a Wish84 console side-by-side with R.
+# (to get wish, you need to install ActiveTcl from
+# http://www.activestate.com/Products/ActiveTcl/)
+# Once it is done, start 'Wish84' from the start menu)
+# Register the Wish console as a DDE server, that is, type in it
+# (\% is the Tcl prompt, don't type it!):
+# \% package require dde
+# \% dde servername wish
 
-    # In wish, check that vars exist and have correct value
-    # \% puts $myvar
-    # \% puts $mynumvar
+# In R:
+tk2dde("R") # Return 0 if succeed
+tk2dde.services()
+# Evaluate some string in wish
+tk2dde.exec("TclEval", "wish", "{puts {Hello World!}}")
+# Give a value to a variable in wish
+tk2dde.poke("TclEval", "wish", "myvar", "{This is a string!}")
+# Note that you must surround strings with curly braces in Tcl!
+tk2dde.poke("TclEval", "wish", "mynumvar", c(34.56, 78.9))
 
-    # Get the value of one variable from wish into R
-    tk2dde.request("TclEval", "wish", "myvar")
-    tk2dde.request("TclEval", "wish", "mynumvar")
-    # Note that you don't know here if it is a string, a numerical data, or so...
-    # You have to know and convert yourself!
+# In wish, check that vars exist and have correct value
+# \% puts $myvar
+# \% puts $mynumvar
 
-    # Now, the other way: execute a R function from wish
-    # You first need to register a R function for callback
-    # (I don't how yet to deal with arguments here, so, use functions without args!)
-    doDDE <- function() cat("DDE execute!\\n")	# A simple function without arguments
-    tclFun(doDDE)
-    # And in wish
-    # \% dde execute TclEval R doDDE
+# Get the value of one variable from wish into R
+tk2dde.request("TclEval", "wish", "myvar")
+tk2dde.request("TclEval", "wish", "mynumvar")
+# Note that you don't know here if it is a string, a number, or so...
+# You have to know and convert yourself!
 
-    # Once you have defined a variable using tclVar, you can get or change its value
-    #from the dde server
-    # However, tclVar gives cryptic names like ::RTcl1. so we prefer to use tclVarname
-    myvar <- tclVarname("myvar", "this is a test...")
-    tclvalue(myvar) # This is the way we access to this variable in R
+# Now, the other way: execute a R function from wish
+# You first need to register a R function for callback
+# (For the moment, only functions without arguments are supported!)
+doDDE <- function() cat("DDE execute!\n")	# A simple function
+tclFun(doDDE)
+# And in wish
+# \% dde execute TclEval R doDDE
 
-    # In wish you get the value and change it:
-    # \% dde request TclEval R myvar
-    # Again, dde poke does not work here and must be replaced by an execute command
-    # This doesn't work (???)
-    # \% dde poke TclEval R myvar {yes! and it works...}
-    # ... but this is fine
-    # \% dde execute TclEval R {set myvar {yes! and it works...}}
+# Once you have defined a variable using tclVar, you can get or change it
+# from the dde server. However, tclVar gives cryptic names like ::RTcl1.
+# So we prefer to use tclVarName
+myvar2 <- tclVarName("myvar2", "this is a test...")
+tclvalue(myvar2) # This is the way we access to this variable in R
 
-    # And in R...
-    tclvalue(myvar)
+# In wish you get the value and change it:
+# \% dde request TclEval R myvar2
+# Again, dde poke does not work and must be replaced by an execute command
+# This doesn't work (???)
+# \% dde poke TclEval R myvar2 {yes! and it works...}
+# ... but this is fine
+# \% dde execute TclEval R {set myvar2 {yes! and it works...}}
 
-    # You can also change the value of a variable, or run a command in R from
-    #the command line using execdde.exe:
-    # Copy \%R_Home\%\\library\\tcltk2\\libs\\execdde.exe somewhere in your path,
-    # start a DOS window
-    # and enter the following commands:
-    # > execdde -s TclEval -t R -c doDDE > NUL
-    # > if errorlevel 1 echo An error occurred... branch accordingly in your batch file!
-    # > execdde -s TclEval -t R -c "set myvar {ok from execdde!}" > NUL
-
-    # And in R:
-    tclvalue(myvar)
-    # Note that, thanks to separate event loops, this work also when R is calculating...
-
-    # Other examples of DDE use:
-    #### Manipulating Microsoft Excel ####
-    # Start Excel with a blank workbook, then...
-
-    # Change values in Excel from R:
-    tk2dde.poke("Excel", "Sheet1", "R1C1:R2C1", "{5.7\\n6.34}")   # Some data
-    tk2dde.poke("Excel", "Sheet1", "R3C1", "{= A1 + A2}")        #... and a formula
-
-    # Read values in Excel (note that results of formulas are returned)
-    Res <- tk2dde.request("Excel", "Sheet1", "R1C1:R3C1")
-    Res
-    as.numeric(strsplit(Res, "\\r\\n", fixed = TRUE)[[1]])        # Convertion
-
-    # Execute a command in Excel
-    tk2dde.exec("Excel", "Sheet1", "{\[\Select(\"R1C1:R3C1\")]\[New(2,2)\]}")
-    # New(2,2) create a bar graph in a separate sheet
-    # Note: close this graph now, in order to run the remaining commands properly!
-
-    # R as server and Excel as client
-    # Prepare R as server
-    tk2dde("SciViewsR") # Now, my server name is TclEval|SciViewsR !
-    # Create a variable that will be shared with Excel
-    XlVar <- tclVarname("XlVar", "this is a test!")
-    # Enter a formula somewhere in Excel to link to this variable
-    tk2dde.poke("Excel", "Sheet1", "R5C1", "=TclEval|SciViewsR!'::XlVar'")
-
-    # Now, change the content in XlVar
-    tclvalue(XlVar) <- "Another text..."
-    # Rem: in my Excel, the content of the cell is not changed automatically...
-    # I must reenter the formula for the changes to be considered!?
+# And in R...
+tclvalue(myvar2)
 
 
-    #### Manipulating Microsoft Word ####
-    # Start Word and then...
-    tk2dde.exec("Winword", "System", "{\[EndOfDocument\]}")
-    tk2dde.exec("Winword", "System", "{\[Insert \"Text from Tcl.\"\]}", async = TRUE)
+#### DDE at the command line with execdde.exe ####
+# You can also change the value of a variable, or run a command in R from
+# the command line using execdde.exe:
+# - Copy \%R_Home\%\\library\\tcltk2\\bin\\execdde.exe somewhere in your path,
+# - Start a DOS window
+# - Enter the following commands ('>' is the prompt, don't type it):
+# > execdde -s TclEval -t R -c doDDE > NUL
+# > if errorlevel 1 echo An error occurs... branch accordingly in your batch!
+# > execdde -s TclEval -t R -c "set myvar2 {ok from execdde!}" > NUL
 
-    # Can also use:
-    #  AppMaximize 1
-    #  StatOfDocument
-    #  EditFind .Find="hello" .PatternMatch=1
-    #  FileExit 2
-    #  FileClose 2 # 2 = close without saving, 1 = save first, 0 = prompt
+# And in R:
+tclvalue(myvar2)
+# Note: thanks to separate event loops, it works also when R calculates...
 
-    # If you need to start the application (Word) before using DDE, you must
-    # wait that Word becomes ready!
-    # This is a Tcl proc that shows how to do that
-    #### TO DO: translate this in R...
-    # proc doc2txt fn {
-    #     package require dde
-    #     package require Tk; # because we need [selection]
-    #     eval exec [auto_execok start] [list $fn] &
-    #
-    #     #Loop to wait until Word is really there, and ready to talk
-    #     set word ""
-    #     while {$word==""} {
-    # 	set word [dde services Winword System]
-    # 	after 200
-    #     }
-    #     after 1000 ;# wait for the window to load...
-    #     dde execute Winword System {[EditSelectAll]}
-    #     dde execute Winword System {[EditCopy]}
-    #     set res [selection get -selection CLIPBOARD]
-    #     dde execute Winword System {[FileExit 2]}
-    #     set res
-    # }
-    # doc2txt {C:\Temp\Test.doc}
-
-    #### Control Matlab (don't work with Rel 12?!)
-    # Start Matlab and then...
-    tk2dde.exec("Matlab", "Engine", "{s = ones(5);}")
-    # Then in Matlab, type s
+# Other examples of DDE use:
 
 
-    #### Manipulating Progman to create and delete shortcuts ####
-    tk2dde.exec("progman", "progman", "{\[CreateGroup(Bogus)\]}")
-    tk2dde.exec("progman", "progman", "{\[AddItem(notepad.exe,BogusPadLink)\]}")
-    tk2dde.exec("progman", "progman", "{\[ShowGroup(Bogus,0)\]}")
-    tk2dde.exec("progman", "progman", "{\[ShowGroup(Bogus,1)\]}")
-    # And delete it...
-    tk2dde.exec("progman", "progman", "{\[DeleteItem(BogusPadLink)\]}")
-    tk2dde.exec("progman", "progman", "{\[DeleteGroup(Bogus)\]}")
-    ## Rem: the same can be done with tcom, if installed:
-    #.Tcl("package require tcom")
-    #.Tcl("set sh [::tcom::ref createobject {WScript.Shell}]")
-    #.Tcl("set lnk [$sh CreateShortcut {c:\\\\temp\\\\boguspad.lnk}]")
-    #.Tcl("$lnk TargetPath {\"notepad.exe\"}")
-    #.Tcl("$lnk WorkingDirectory {c:\\\\temp}")
-    #.Tcl("$lnk Arguments Tutorial.txt")
-    #.Tcl("$lnk Save")
+#### Manipulating Microsoft Excel ####
+# Start Excel with a blank workbook, then...
+
+# Change values in Excel from R:
+tk2dde.poke("Excel", "Sheet1", "R1C1:R2C1", c("5.7", "6.34"))   # Some data
+tk2dde.poke("Excel", "Sheet1", "R3C1", "= A1 + A2")        		# A formula
+
+# Read values in Excel (note that results of formulas are returned)
+Res <- tk2dde.request("Excel", "Sheet1", "R1C1:R3C1")
+Res
+as.numeric(Res)
+
+# Execute a command in Excel
+tk2dde.exec("Excel", "Sheet1", "{\[\Select(\"R1C1:R3C1\")]\[New(2,2)\]}")
+# New(2,2) create a bar graph in a separate sheet
+# Note: close this graph now, in order to run the rest properly!
+
+# R as server and Excel as client
+# Prepare R as server
+tk2dde("R") # Now, my server name is TclEval|R !
+# Create a variable that will be shared with Excel
+XlVar <- tclVarName("XlVar", "this is a test!")
+# Enter a formula somewhere in Excel to link to this variable
+tk2dde.poke("Excel", "Sheet1", "R5C1", "=TclEval|R!'::XlVar'")
+
+# Now, change the content in XlVar
+tclvalue(XlVar) <- "Another text..."
+# Rem: in my Excel, the content of the cell is not changed automatically...
+# I must reenter the formula for the changes to be considered!?
 
 
-    ## Controlling Internet Explorer through DDE
-    # Start Internet Explorer, then...
-    tk2dde.exec("iexplore", "WWW_OpenURL", "{http://www.sciviews.org/}")
-    # It works, but return an error in R???
-    tk2dde.exec("iexplore", "WWW_ShowFile", "{C:/progra~1/R/rw2001/doc/html/index.html}")
-    # Idem
-    # Info on the current opened window
-    tk2dde.request("iexplore", "WWW_GetWindowInfo", "1")
-    # and this does not work!)
-    # tk2dde.request("iexplore", "WWW_ListWindows", "0")
+#### Manipulating Microsoft Word ####
+# Start Word and then...
+tk2dde.exec("Winword", "System", "{\[EndOfDocument\]}")
+tk2dde.exec("Winword", "System", "{\[Insert \"Text from R.\"\]}",
+	async = TRUE)
 
+# Can also use:
+#  AppMaximize 1
+#  StatOfDocument
+#  EditFind .Find="hello" .PatternMatch=1
+#  FileExit 2
+#  FileClose 2 # 2 = close without saving, 1 = save first, 0 = prompt
 
-    ## Controlling Windows explorer
-    tk2dde.exec("Folders", "AppProperties", "{\[ViewFolder(\"C:\\Temp\",\"C:\\Temp\",5)\]}")
-    #... or you can also try 'ExplodeFolder'
-    
-    # Search in folder
-    tk2dde.exec("Folders", "AppProperties", "{\[FindFolder(\"\",\"C:\\Temp\")\]}")
-  }
+# If you want to start the program if not running, you must take care that
+# you leave enough time to the program to initialize before you can use DDE
+# commands with it! Here is an example (make sure that Word is not running):
+is.WordStarted <- function()
+	(length(tk2dde.services("Winword", "System")) > 0)
+if (!is.WordStarted()) {
+	# Get the path to WinWord.exe
+	Word <- try(tk2reg.get(paste("HKEY_LOCAL_MACHINE", "SOFTWARE", "Classes",
+		"WordDocument", "protocol", "StdFileEditing", "server", sep = "\\"), ""))
+	if (is.na(Word)) {
+		cat("Microsoft Word is not found!\n")
+	} else {	# Start Microsoft Word and wait for its complete loading
+		# Start Word
+		system(Word, wait = FALSE)
+		# Wait a maximum of 15 sec...
+		for (i in 1:15) {
+			Sys.sleep(1)	# Wait 1 sec
+			res <- is.WordStarted()
+			if (res) break
+		}
+		if (res) cat("Now Word is started and ready to get DDE commands!\n")
+		tk2dde.exec("Winword", "System", "{\[Insert \"My text from R.\"\]}",
+			async = TRUE)
+	}
 }
+
+
+#### Control Matlab
+# Start Matlab and then...
+tk2dde.exec("Matlab", "Engine", "s = ones(5);")
+# Then in Matlab, type s
+
+
+#### Manipulating Progman to create and delete shortcuts ####
+tk2dde.exec("progman", "progman", "{\[CreateGroup(Bogus)\]}")
+tk2dde.exec("progman", "progman", "{\[AddItem(notepad.exe,BogusPadLink)\]}")
+tk2dde.exec("progman", "progman", "{\[ShowGroup(Bogus,0)\]}")
+tk2dde.exec("progman", "progman", "{\[ShowGroup(Bogus,1)\]}")
+# And delete it...
+tk2dde.exec("progman", "progman", "{\[DeleteItem(BogusPadLink)\]}")
+tk2dde.exec("progman", "progman", "{\[DeleteGroup(Bogus)\]}")
+## Rem: the same can be done with tcom, if installed:
+#.Tcl("package require tcom")
+#.Tcl("set sh [::tcom::ref createobject {WScript.Shell}]")
+#.Tcl("set lnk [$sh CreateShortcut {c:\\\\temp\\\\boguspad.lnk}]")
+#.Tcl("$lnk TargetPath {\"notepad.exe\"}")
+#.Tcl("$lnk WorkingDirectory {c:\\\\temp}")
+#.Tcl("$lnk Arguments Tutorial.txt")
+#.Tcl("$lnk Save")
+
+
+#### Controlling Internet Explorer ####
+# Start Internet Explorer, then...
+tk2dde.exec("iexplore", "WWW_OpenURL", "{http://www.r-project.org/}")
+# It works, but return an error in R???
+# This is similar to the browseURL() in package util (just for the demo!)
+HelpIndex <- file.path(R.home(), "doc", "html", "index.html")
+tk2dde.exec("iexplore", "WWW_ShowFile", paste("{", HelpIndex, "}", sep = ""))
+# Info on the current opened window
+tk2dde.request("iexplore", "WWW_GetWindowInfo", "1")
+
+
+#### Controlling Windows explorer ####
+tk2dde.exec("Folders", "AppProperties",
+	"{\[ViewFolder(\"C:\\\",\"C:\\\",5)\]}")
+# ... or you can also try 'ExplodeFolder'
+    
+# Search in folder
+tk2dde.exec("Folders", "AppProperties", "{\[FindFolder(\"\",\"C:\\\")\]}")
+}
+}
+
 \keyword{ utilities }
 \keyword{ IO }

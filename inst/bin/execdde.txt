@@ -1,0 +1,78 @@
+execdde Version 1.02
+--------------------
+
+Copyright (C) 2002-2003, Ascher Stefan
+
+
+Contents:
+---------
+
+  * License
+  * Introduction
+  * Commandline Arguments
+  * Exit Codes
+  * Compiling
+  * Files
+  
+
+License:
+--------
+
+This Program is distributed under the terms of the GNU General Public License
+Version 2 (the "GPL"), see the license.txt file for further informations.
+
+
+Introduction:
+-------------
+
+This is a small Commandline Tool to execute DDE (Dynamic Data Exchange) commands.
+
+
+Commandline Arguments
+---------------------
+
+usage: 
+  execdde [-p <program> [-d <dir>]] [-o <timeout>] [-w <wait>] -s <server> [-t <topic>] -c <command1[...n]>
+
+parameters:
+  program : Program filename, e.g. acrord32.exe
+  dir     : Workingdirectory for the program, e.g.
+            D:\Programme\Adobe\Acrobat 5.0\Reader
+  timeout : Timeout in ms, default 5000 (5 sec.)
+  wait    : Time to wait between commands in ms (optional), default 0
+  server  : The DDE server, e.g. "acroview"
+  topic   : The topic, e.g. "control"
+  commands: The commands to execute, e.g. [DocOpen("file.pdf")]
+
+example:
+   execdde -p acrord32.exe -s acroview -t control -c [DocOpen("file.pdf")] [FileOpen("file.pdf")]
+
+If the server is not already running and a program filename is provided, it will
+start it.
+
+As ever, arguments containing spaces must be enclosed in quotes.
+
+
+Exit Codes:
+-----------
+
+0: No Error
+1: No or wrong Arguments, No Commands or No Server
+2: DdeInitialize failed
+3: DdeConnect failed
+4: DdeClientTransaction failed
+
+
+Compiling:
+----------
+
+This program has been compiled successfully with VC++ 6, Borlands BCC 5.5 and
+MinGW32/GCC 3.2, which has been used to compile the distributed program.
+
+________________________________________________________________________________
+
+Best wishes Stefan
+
+stievie@utanet.at
+http://web.utanet.at/ascherst/
+

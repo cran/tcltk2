@@ -2,15 +2,15 @@
 \alias{tk2tip}
 \alias{tk2killtip}
 
-\title{ Display and manage tooltips in tk widgets }
+\title{ Display and manage tooltips in Tk widgets }
 \description{
-  \code{tk2tip} provides a simple mechanism to display tooltips on tk widgets when
+  \code{tk2tip} provides a simple mechanism to display tooltips on Tk widgets when
   the mouse hoover on top of them.
 }
 
 \usage{
-  tk2tip(widget, message)
-  tk2killtip()
+tk2tip(widget, message)
+tk2killtip()
 }
 
 \arguments{
@@ -20,23 +20,31 @@
 
 \author{ Philippe Grosjean }
 
-\note{ This implementation is done in pure tcl code }
+\note{ This implementation is done in pure Tcl code }
 
-\seealso{ \code{\link{tk2widgets}}, \code{\link{tk2theme}} }
+\seealso{ \code{\link{tk2widgets}} }
+
 \examples{
-  \dontrun{
-    ## These cannot be run by examples() but should be OK when pasted
-    ## into an interactive R session with the tcltk package loaded
+\dontrun{
+## These cannot be run by examples() but should be OK when pasted
+## into an interactive R session with the tcltk package loaded
 
-	tt2 <- tktoplevel()
-    lb <- tk2label(tt2, text = "Move mouse over me, or over the button to see tooltip")
-    tkgrid(lb)
-    tk2tip(lb, "A tooltip for the label \ndisplayed on two lines")
-    but <- tk2button(tt2, text = "OK", width = 10,
-    	command = function() tkdestroy(tt2))
-    tkgrid(but)
-    tk2tip(but, "Another tooltip for the button")
-    #### TO DO: show the use of tk2killtip()!
-  }
+# Using plain Tcl/Tk label and button (tk2XXX equivalent have built-in
+# tooltip features)
+tt2 <- tktoplevel()
+lb <- tklabel(tt2,
+	text = "Move mouse over me, or over the button to see tooltip")
+tkgrid(lb)
+tk2tip(lb, "A tooltip for the label \ndisplayed on two lines")
+but <- tkbutton(tt2, text = "Exit", width = 10,
+    command = function() tkdestroy(tt2))
+tkgrid(but)
+tk2tip(but, "Exit from this dialog box")
+    
+# To test tk2killtip(), move mouse on top of a widget
+# so that the tip is visible, and force killing it manually using:
+tk2killtip()
+# Move again to the widget: the tip is displayed again. 
+}
 }
 \keyword{ utilities }

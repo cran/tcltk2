@@ -43,7 +43,7 @@
 
 source "./notebook.tcl"
 
-Notebook:create .n -pages {One Two Three Four Five} -pad 20 
+Notebook:create .n -pages {One Two Three Four Five} -pad 3 
 pack .n -fill both -expand 1
 set w [Notebook:frame .n One]
 label $w.l -text "Hello.\nThis is page one"

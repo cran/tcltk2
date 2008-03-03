@@ -1,4 +1,12 @@
 # A Notebook widget for Tcl/Tk
+# Philippe Grosjean (phgrosjean@sciviews.org) changes made to the widget:
+# - all lines widths are changed from 2 to 1 (thinner = more discrete ones!)
+# - all black lines have been changed to gray40 (more discrete ones)
+# - pad height is reduced from 30 to 20
+# - frames for each tab are called with a number, instead of "f" + number
+# - adde procs Notebook:current and Notebook:current.frame
+# - all changes are commented out as PhG: ... in the code
+
 # $Revision: 1.3 $
 #
 # Copyright (C) 1996,1997,1998 D. Richard Hipp
@@ -83,13 +91,15 @@ proc Notebook:config {w args} {
   set Notebook($w,x4) [expr $Notebook($w,x3)+2]
   set Notebook($w,y1) [expr $Notebook($w,pad)+2]
   set Notebook($w,y2) [expr $Notebook($w,y1)+2]
-  set Notebook($w,y5) [expr $Notebook($w,y1)+30]
+  # PhG: change pad height from 30 to 20 in the following line
+  set Notebook($w,y5) [expr $Notebook($w,y1)+20]
   set Notebook($w,y6) [expr $Notebook($w,y5)+2]
-  set Notebook($w,y3) [expr $Notebook($w,y6)+$Notebook($w,height)]
+  # PhG: added 10 to the following computation to compensate smaller pad height
+  set Notebook($w,y3) [expr $Notebook($w,y6)+$Notebook($w,height)+10]
   set Notebook($w,y4) [expr $Notebook($w,y3)+2]
   set x $Notebook($w,x1)
   set cnt 0
-  set y7 [expr $Notebook($w,y1)+10]
+  set y7 [expr $Notebook($w,y1)+5]	;# PhG: text offset changed from 10 to 5
   foreach p $Notebook($w,pages) {
     set Notebook($w,p$cnt,x5) $x
     set id [$w create text 0 0 -text $p -anchor nw -tags "p$cnt t$cnt"]
@@ -101,26 +111,27 @@ proc Notebook:config {w args} {
        $x $Notebook($w,y2) \
        [expr $x+2] $Notebook($w,y1) \
        [expr $x+$width+16] $Notebook($w,y1) \
-       -width 2 -fill white -tags p$cnt
+       -width 1 -fill white -tags p$cnt	;# PhG: width changed from 2 to 1
     $w create line \
        [expr $x+$width+16] $Notebook($w,y1) \
        [expr $x+$width+18] $Notebook($w,y2) \
        [expr $x+$width+18] $Notebook($w,y5) \
-       -width 2 -fill black -tags p$cnt
+       -width 1 -fill gray40 -tags p$cnt
+    # PhG: above, width change from 2 to 1 and fill from black to gray40
     set x [expr $x+$width+20]
     set Notebook($w,p$cnt,x6) [expr $x-2]
-    if {![winfo exists $w.f$cnt]} {
-      frame $w.f$cnt -bd 0
+    if {![winfo exists $w.$cnt]} {
+      frame $w.$cnt -bd 0
     }
-    $w.f$cnt config -bg $Notebook($w,bg)
-    place $w.f$cnt -x $Notebook($w,x2) -y $Notebook($w,y6) \
+    $w.$cnt config -bg $Notebook($w,bg)
+    place $w.$cnt -x $Notebook($w,x2) -y $Notebook($w,y6) \
       -width $Notebook($w,width) -height $Notebook($w,height)
     incr cnt
   }
   $w create line \
      $Notebook($w,x1) [expr $Notebook($w,y5)-2] \
      $Notebook($w,x1) $Notebook($w,y3) \
-     -width 2 -fill white
+     -width 1 -fill white	;# PhG: width changed from 2 to 1
   $w create line \
      $Notebook($w,x1) $Notebook($w,y3) \
      $Notebook($w,x2) $Notebook($w,y4) \
@@ -128,7 +139,8 @@ proc Notebook:config {w args} {
      $Notebook($w,x4) $Notebook($w,y3) \
      $Notebook($w,x4) $Notebook($w,y6) \
      $Notebook($w,x3) $Notebook($w,y5) \
-     -width 2 -fill black
+     -width 1 -fill gray40
+     # PhG: above, width change from 2 to 1 and fill from black to gray40
   $w config -width [expr $Notebook($w,x4)+$Notebook($w,pad)] \
             -height [expr $Notebook($w,y4)+$Notebook($w,pad)] \
             -bg $Notebook($w,bg)
@@ -173,18 +185,18 @@ proc Notebook:raise.page {w n} {
        $Notebook($w,x2) $Notebook($w,y5) \
        $Notebook($w,p$n,x5) $Notebook($w,y5) \
        $Notebook($w,p$n,x5) [expr $Notebook($w,y5)-2] \
-       -width 2 -fill white -tags topline
+       -width 1 -fill white -tags topline	;# PhG: width changed from 2 to 1
   }
   $w create line \
     $Notebook($w,p$n,x6) [expr $Notebook($w,y5)-2] \
     $Notebook($w,p$n,x6) $Notebook($w,y5) \
-    -width 2 -fill white -tags topline
+    -width 1 -fill white -tags topline	;# PhG: width changed from 2 to 1
   $w create line \
     $Notebook($w,p$n,x6) $Notebook($w,y5) \
     $Notebook($w,x3) $Notebook($w,y5) \
-    -width 2 -fill white -tags topline
+    -width 1 -fill white -tags topline	;# PhG: width changed from 2 to 1
   set Notebook($w,top) $n
-  raise $w.f$n
+  raise $w.$n
 }
 
 #
@@ -236,10 +248,32 @@ proc Notebook:frame {w name} {
   global Notebook
   set i [lsearch $Notebook($w,pages) $name]
   if {$i>=0} {
-    return $w.f$i
+    return $w.$i
   } else {
     return {}
   }
+}
+
+# PhG: added a function to get the frame associated with the current tab.
+proc Notebook:current.frame {w} {
+	global Notebook
+	set top $Notebook($w,top)
+	if {$top>=0 && $top<[llength $Notebook($w,pages)]} {
+    	return $w.$top
+  	} else {
+    	return {}
+  	}
+}
+
+# PhG: added a function to get the name of the current tab.
+proc Notebook:current {w} {
+	global Notebook
+	set top $Notebook($w,top)
+	if {$top>=0 && $top<[llength $Notebook($w,pages)]} {
+    	return [lindex $Notebook($w,pages) $top]
+  	} else {
+    	return {}
+  	}
 }
 
 #

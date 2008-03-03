@@ -80,7 +80,7 @@ proc balloon {target message {cx 0} {cy 0} } {
 		}
     	    toplevel .balloon -bg black -screen [winfo screen $target]
     	    wm overrideredirect .balloon 1
-			# PhG: under Windows, make it topmost, so that it float on top of other topmosts
+			# PhG: under Windows, make it topmost, so that it floats on top of other topmosts
 			if { [regexp topmost [wm attributes .balloon]] == 1 } {
 				wm attributes .balloon -topmost 1
 			}

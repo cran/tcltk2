@@ -1,0 +1,128 @@
+====================================================
+    SendMsg 2.1 - Window Message Posting Utility
+(c) 2005 Maximum Output Software - www.maxoutput.com
+====================================================
+
+The SendMsg utility is used to post messages to various windows in the
+Windows operating system using the built-in messaging subsystem.  Messages
+which can be posted include, (but are not limited to) closing, hiding, resizing,
+and user-defined messages as well.  If you are not familiar with how the
+messaging system works, please consult the Windows SDK, or the Microsoft
+MSDN library for more information, specifically the SendMessage and PostMessage
+and related system calls.
+
+The utility is designed to run from a command line.  It has no graphical output.
+Messages can be posted to windows based on their title text, classname, or
+handle.
+
+In addition to posting messages, this utility can also be used to list windows
+which match a certain criteria.
+
+==================
+Installing SendMsg
+==================
+
+Copy the SENDMSG.EXE and CONST.TXT files to a directory on your system path.
+For Windows 95/98/Me we recommend the Windows\Command directory.  For NT/2000/
+XP/2003 we recommend placing the files in the WINNT or Windows directory.
+
+==============
+SendMsg Syntax
+==============
+
+We recommend using a command prompt to learn how to use the utility.  Once you
+have mastered its basic usage, you can add the utility to batch files, or run
+it from any utility which allows you to launch applications.
+
+The format of the command line is as follows: (this information is also 
+available by running the SENDMSG with the /? parameter)
+
+SendMsg {switches} [SearchStr] {Message} {wParam} {lParam}
+
+  Switches:
+     /CLASS or /TEXT   Search window classnames/titles
+     /NOWAIT       Post message without waiting for result
+     /[IN]VISIBLE  Include only [in]visible windows
+     /TOP          Include only top-level windows
+     /PAUSExxx     Delay xxx seconds after sending each message
+     /EXAMPLES     Show example command lines
+
+  SearchStr   String to search for.  Wildcards ? and * allowed
+              SearchStr is NOT case sensitive
+              Use "double quotations" if SearchStr contains spaces
+  Message     Message to send.  If omitted, find windows only
+              Constants in CONST.TXT [+/- offset] allowed
+  wParam      wParam parameter.  If omitted, use "0" as default
+  lParam      lParam parameter.  If omitted, use "0" as default
+
+All numeric values can be listed in either decimal or $hexadecimal.
+
+=====================
+Example command lines
+=====================
+
+     SENDMSG /CLASS #32770 WM_NULL+0 0 0
+          Sends the WM_NULL+0 message to all windows with class name #32770
+
+     SENDMSG "Microsoft Word*" WM_CLOSE
+          Sends the WM_CLOSE message to all Microsoft Word* windows
+
+     SENDMSG "My Application" WM_USER+50 47 32
+          Sends the WM_USER+50 message to My Application window
+
+     SENDMSG /TEXT /VISIBLE M*
+          List all visible windows with title beginning with M
+
+     SENDMSG *
+          List all windows
+
+     SENDMSG /VISIBLE /TOP *
+          List all visible top-level windows
+
+===========
+Pipe Output
+===========
+
+As with most command-line utilities, its output can be piped to a file:
+
+     SENDMSG /VISIBLE /TOP * >PIPEFILE.TXT
+
+=================
+Message Constants
+=================
+
+Several common message constant values (such as WM_CLOSE, etc) are defined 
+in the CONST.TXT file.  As long as this file is located in the same 
+directory as the SENDMSG.EXE file these constants can be used in your 
+command line.  In addition, an offset can be used: WM_USER+50.  If you
+wish to add additional constants, edit the CONST.TXT file and add them
+in the same format as the other constants listed.
+
+==========================
+Why Is This Software FREE?
+==========================
+
+We wrote the SendMsg program for internal use and found it to be quite
+useful for shutting down applications in batch files, controlling our
+backup software (FileBack PC) from within batch files, showing and hiding
+windows, and other various window-related utilities.  We thought that
+something useful to us might be useful to others.  As we never intended
+to sell it, it didn't seem logical to charge anything for it.  However,
+we do hope that as a "thank you" to us you might stop by our web site
+and take a look at the other software we do offer.
+
+Please visit our web site at www.maxoutput.com!
+
+==========================
+Copyright and Distribution
+==========================
+
+The SendMsg program and its related material are copyright 2001-2002 by
+Maximum Output Software.  All rights reserved.  There is no charge for
+use of this utility.  It may be redistributed as long as the contents of
+the original ZIP file are left unchanged.  The newest version of the
+utility is always available on our web site: www.maxoutput.com.  We
+recommend you check back periodically for product updates and to check
+out our other available software.
+
+Thanks for using SendMsg!

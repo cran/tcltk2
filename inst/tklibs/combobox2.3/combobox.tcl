@@ -27,6 +27,9 @@
 #
 # ... and many others over the years.
 
+# Philippe Grosjean (PhG): changed topmost attribute of drop-down list under Windows
+
+
 package require Tk 8.0
 package provide combobox 2.3
 
@@ -504,6 +507,10 @@ proc ::combobox::Build {w args } {
     # now, the dropdown list... the same renaming nonsense
     # must go on here as well...
     set widgets(dropdown)   [toplevel  $w.top]
+    # PhG: under Windows, make it topmost, so that it floats on top of other topmosts
+	if { [regexp topmost [wm attributes $w.top]] == 1 } {
+		wm attributes $w.top -topmost 1
+	}
     set widgets(listbox) [listbox   $w.top.list]
     set widgets(vsb)     [scrollbar $w.top.vsb]
 
