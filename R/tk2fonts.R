@@ -71,7 +71,7 @@
 		fntfamilies <- as.character(tkfont.families())
 		for (i in 1:l) {
 			# Construct the font descriptor
-			fntl <- settings[[i]]
+			fntl <- as.list(settings[[i]])
 			fnt <- " "
 			if (!is.null(fntl$family)) {
 				# Look for the first font family provided that is available

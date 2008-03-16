@@ -1,6 +1,6 @@
 Package: tcltk2
 Title: Tcl/Tk Additions
-Version: 1.0-7
+Version: 1.0-7.1
 Date: 2008-03-16
 Depends: R (>= 2.4.0), tcltk
 Suggests: utils
@@ -11,4 +11,4 @@ Description: A series of additional Tk widgets with style and various functions
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 License: file LICENSE
 URL: http://www.sciviews.org/SciViews-R
-Packaged: Wed Feb  4 10:43:10 2009; hornik
+Packaged: Tue Feb 10 11:00:36 2009; hornik
