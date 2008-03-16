@@ -64,7 +64,7 @@ tk2reg.values(keyname)
 
 \note{ For Windows only. These functions issue an error when they are called
   under other platforms. Take care while manipulating the Windows registry!
-  You can easily lock the system completelly, if you delete important items,
+  You can easily lock the system completely, if you delete important items,
   especially if you are logged as administrator on your computer. Make a backup
   of your registry first before experimenting with these function!!!
 }
@@ -79,23 +79,24 @@ tk2reg.values(keyname)
 ## Examples of tk2reg - registry manipulation under Windows
 # Rem: HKEY_LOCAL_MACHINE, HKEY_USERS, HKEY_CLASSES_ROOT, HKEY_CURRENT_USER,
 #      HKEY_CURRENT_CONFIG, HKEY_PERFORMANCE_DATA, HKEY_DYN_DATA
-Rkey <- "HKEY_LOCAL_MACHINE\\Software\\R-core\\R"   # The R key
-Rsubkey <- paste(Rkey, "subkey", sep = "\\")        # A subkey
+Rkey <- "HKEY_LOCAL_MACHINE\\\\Software\\\\R-core\\\\R"   # The R key
+Rkey <- paste(RKkey, "\\\\", R.version$major, ".", R.version$minor, sep = "")
+Rsubkey <- paste(Rkey, "subkey", sep = "\\\\")        # A subkey
 
 # Get all subkeys for Software in the local machine
-tk2reg.keys("HKEY_LOCAL_MACHINE\\Software")
+tk2reg.keys("HKEY_LOCAL_MACHINE\\\\Software")
 
 # Get all names in the R key
 tk2reg.values(Rkey)
-# Get info about registered R
-tk2reg.get(Rkey, "Current Version")
+
+# Get the path for the current R version
 tk2reg.get(Rkey, "InstallPath")
 
 # Create a subkey (explore the registry with regedit.exe to see it)
 tk2reg.setkey(Rsubkey)
 # Add a couple of keys in it
 tk2reg.set(Rsubkey, "test", "a key added in the registry!", type = "sz")
-tk2reg.set(Rsubkey, "test exp", "%SystemRoot%\\system32", type = "expand_sz")
+tk2reg.set(Rsubkey, "test exp", "\%SystemRoot\%\\\\system32", type = "expand_sz")
 tk2reg.set(Rsubkey, "test multi", LETTERS[1:5], type = "multi_sz")
 tk2reg.set(Rsubkey, "test dword", 1024, type = "dword")
 tk2reg.set(Rsubkey, "test big end", 1024, type = "dword_big_endian")
@@ -106,6 +107,7 @@ tk2reg.type(Rsubkey, "test exp")
 tk2reg.type(Rsubkey, "test multi")
 tk2reg.type(Rsubkey, "test dword")
 tk2reg.type(Rsubkey, "test big end")
+
 # Get a value in a key
 tk2reg.get(Rsubkey, "test")
 tk2reg.get(Rsubkey, "test exp")
@@ -120,7 +122,7 @@ tk2reg.deletekey(Rsubkey)
 
 # An alternate way to get the path
 tk2reg.get(paste("HKEY_LOCAL_MACHINE", "SYSTEM", "CurrentControlSet",
-	"Control", "Session Manager", "Environment", sep = "\\"), "path")
+	"Control", "Session Manager", "Environment", sep = "\\\\"), "path")
 
 # Make sure that currently running apps are warned of your changes in the registry
 tk2reg.broadcast()

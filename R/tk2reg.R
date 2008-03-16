@@ -50,7 +50,7 @@ function(keyname, valuename) {
 
 "tk2reg.deletekey" <-
 function(keyname) {
-    # Completelly delete a registry key (take care when using this!)
+    # Completely delete a registry key (take care when using this!)
     .tk2reg.require()
     keyname <- as.character(keyname[1])
 	res <- tclvalue(.Tcl(paste("catch {registry delete {", keyname, "}}",
@@ -60,7 +60,7 @@ function(keyname) {
 
 "tk2reg.get" <-
 function(keyname, valuename) {
-    # Get the content of a key... do not manage types yet!
+    # Get the content of a key
     .tk2reg.require()
     keyname <- as.character(keyname[1])
 	valuename <- as.character(valuename[1])
@@ -148,7 +148,7 @@ function(keyname) {
 	# First check if the command succeeds
 	res <- tclvalue(.Tcl(paste("catch {registry values {", keyname, "}}",
 		sep = "")))	# Returns "0" if OK, "1" otherwise
-	if (res != "1") return(NA)	# The key probably does not exist!
+	if (res != "0") return(NA)	# The key probably does not exist!
 	# We issue the command now without protection
     res <- as.character(.Tcl(paste("registry values {", keyname, "}",
 		sep = "")))
