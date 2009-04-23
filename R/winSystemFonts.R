@@ -3,6 +3,8 @@
 # Licensed under LGPL 3 or above
 #
 # Changes:
+# - 2009-04-23: quoting the command for system() so that spaces in path are allowed
+#   (thanks to Pascal Hirsh)
 # - 2007-01-11: fisrt version (for tcltk2_1.0-0)
 #
 # To do:
@@ -15,12 +17,12 @@ winSystemFonts <- function() {
 	# Look for a place to find the binary file
 	libs <- .libPaths()
 	for (lib in libs) {
-		sysfontfile <- file.path(lib, "tcltk2", "bin", "SystemFonts.exe")			
+		sysfontfile <- file.path(lib, "tcltk2", "bin", "SystemFonts.exe")
 		if (file.exists(sysfontfile)) {
-			res <- system(sysfontfile, intern = TRUE, invisible = TRUE)
+			res <- system(shQuote(sysfontfile), intern = TRUE, invisible = TRUE)
 			break
 		}
 	}
 	names(res) <- c("default", "menu", "caption", "smallcaption", "status")
-	return(res) 
+	return(res)
 }

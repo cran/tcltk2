@@ -1,11 +1,14 @@
 TclTk2 - To do list:
 --------------------
+- A bug appeared with mclistbox: selecting an item causes a Tcl error -state
+  not defined.
+
 - Despite I changed ::msgcat::mclocale to de, tk2chooseFont() is still in English (but it
   works for fr... why
-  
+
 - tile.use(FALSE) after loading tile does not work with tk2chooseFont()
 
-- How to make TkTable available to other systems? Same problem with Img.
+- How to make TkTable available to other systems?
 
 - Rework tk2edit() [takes numeric only and return characters for the moment!
   rework also the button bar]
@@ -17,8 +20,6 @@ TclTk2 - To do list:
 - Check that the winico install is not installed for other systems
 
 - For the tips: select background color and font from style (same for bwidgets)
-
-- Compile Tcl/Tk myself and provide, at least, wish84.exe in the \bin subdir
 
 - The package help file
 
@@ -52,8 +53,8 @@ TclTk2 - To do list:
   + styles must be handled with option! + tk_setPalette?
   + GUI designer for fixed place of widgets
   + tk/tkvars to retrieve various tk informations
-  + use winfo  
+  + use winfo
 
 - Make a demo section
 
-- Add the documentation for tile and update to version 0.7.8
+- Add the documentation for tile and update to ttk in tk 8.5

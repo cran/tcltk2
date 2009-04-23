@@ -31,7 +31,7 @@ function(parent, tip = "", use.tile = is.tile(), ...) {
 	class(w) <- c("tk2canvas", "tk2widget", class(w))
 	return(w)
 }
-	
+
 "tk2checkbutton" <-
 function(parent, tip = "", use.tile = is.tile(), ...) {
 	# TODO: associate with a variable and set both states values
@@ -82,7 +82,7 @@ function(parent, tip = "", use.tile = is.tile(), ...) {
 }
 
 "tk2frame" <-
-function(parent, use.tile = is.tile(), ...) { 
+function(parent, use.tile = is.tile(), ...) {
 	if (!is.tk()) stop("Package Tk is required but not loaded")
 	if (use.tile) {
 		w <- tkwidget(parent, "ttk::frame", ...)
@@ -133,7 +133,7 @@ tip = "", use.tile = is.tile(), ...) {
 		w <- tkwidget(parent, "listbox", font = "TkDefaultFont",
 		borderwidth = 0, selectmode = selectmode, exportselection = 0, ...)
 	} else {
-		w <- tkwidget(parent, "listbox", font = "TkDefaultFont", 
+		w <- tkwidget(parent, "listbox", font = "TkDefaultFont",
 		selectmode = selectmode, exportselection = 0, ...)
 	}
 	if (tip != "") tk2tip(w, tip)
@@ -222,15 +222,16 @@ function(parent, tabs, use.tile = is.tile(), ...) {
 function(parent, orientation = c("horizontal", "vertical"),
 use.tile = is.tile(), ...) {
 	if (!is.tk()) stop("Package Tk is required but not loaded")
-	orientation <- as.character(orientation[1]) 
-	if (use.tile) {
-		w <- tkwidget(parent, "ttk::paned", orient = orientation, ...)
-		class(w) <- c("ttk2panedwindow", "tk2widget", class(w))
-	} else {
-		w <- tkwidget(parent, "panedwindow", orient = orientation, 
+	orientation <- as.character(orientation[1])
+### TODO: this does not work any more
+#	if (use.tile) {
+#		w <- tkwidget(parent, "ttk::paned", orient = orientation, ...)
+#		class(w) <- c("ttk2panedwindow", "tk2widget", class(w))
+#	} else {
+		w <- tkwidget(parent, "panedwindow", orient = orientation,
 			bd = 0, sashrelief = "groove", ...)
 		class(w) <- c("tk2panedwindow", "tk2widget", class(w))
-	}
+#	}
 	return(w)
 }
 
@@ -353,7 +354,7 @@ function(parent, tip = "", use.tile = is.tile(), ...) {
 	if (use.tile) tkconfigure(w, relief = "flat")
 	if (tip != "") tk2tip(w, tip)
 	class(w) <- c("tk2text", "tk2widget", class(w))
-	return(w)	
+	return(w)
 }
 
 "tk2ctext" <-

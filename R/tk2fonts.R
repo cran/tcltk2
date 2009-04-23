@@ -3,10 +3,11 @@
 # Licensed under LGPL 3 or above
 #
 # Changes:
+# - 2009-04-23: fix of a bug in fntl$family, $ operator not allowed (thanks Brian Ripley)
 # - 2007-01-11: fisrt version (for tcltk2_1.0-0)
 #
 # To do:
-# - 
+# -
 
 "tk2font.get" <- function(font, what = c("family", "size", "bold", "italic")) {
 	# font is the TkFont name to use, in case of several items, other ones
@@ -22,10 +23,10 @@
 		return("")
 		#if (length(font) == 1) {
 		#	stop("'", font, "' is not currently defined in Tk")
-		#} else {  
+		#} else {
 		#	stop("'", paste(font, collapse = "', '"), "' are not currently defined in Tk")
 		#}
-	}	
+	}
 	fontspec <- as.character(tkfont.configure(fnt))
 	res <- list()
 	if (length(fontspec) != 12) return(res)	# There is a problem here!
@@ -67,7 +68,7 @@
 			if (any(names(settings) %in%
 				c("family", "size", "bold", "italic", "underline", "overstrike")))
 				settings <- list(settings)
-		} 
+		}
 		fntfamilies <- as.character(tkfont.families())
 		for (i in 1:l) {
 			# Construct the font descriptor
@@ -79,7 +80,7 @@
 				if (length(fntfamily) > 1) {
 					fntexists <- fntfamily %in% fntfamilies
 					if (any(fntexists)) fntfamily <- fntfamily[fntexists][1] else
-						fntfamily <- fntfamily[1]	# No fonts found... take first one	
+						fntfamily <- fntfamily[1]	# No fonts found... take first one
 				}
 			 	fnt <- paste(fnt, "-family {", fntfamily, "}", sep = "")
 			}
@@ -110,12 +111,12 @@
 "tk2font.setstyle" <- function(text = TRUE, system = FALSE, default.styles = FALSE) {
 	# Set default fonts according to currently defined style
 	# .SystemFonts and .Fonts must be defined in TempEnv!
-	
+
 	if (!is.tk()) {
 		warning("Package Tk is required but not loaded")
 		return(NULL)
 	}
-	
+
 	# This is a copy of assignTemp(), getTemp() and existsTemp() functions from
 	# svMisc, so that we do not link to this package
 	TempEnv <- function() {
@@ -140,7 +141,7 @@
 	        return(default)
 	    }
 	}
-	
+
 	if (system) {	# Set system fonts
 		# If we are under Windows, we have a better way to get system fonts
 		if (.Platform$OS.type == "windows") {
@@ -169,16 +170,16 @@
 			heading = tk2font.get("TkHeadingFont"),
 			icon = tk2font.get(c("TkIconFont", "TkDefaultFont"))
 		)
-		if (.Platform$OS.type != "windows") {	
+		if (.Platform$OS.type != "windows") {
 			# Define the other system fonts not defined yet by tile
 			res <- tk2font.set(c("TkSmallCaptionFont", "TkMenuFont", "TkStatusFont",
 				"TkIconFont"), list(sysfonts$smallcaption, sysfonts$menu,
-				sysfonts$status, sysfonts$icon))		
+				sysfonts$status, sysfonts$icon))
 		}
 		# Make sure these are correctly defined
-		assignTemp(".SystemFonts", sysfonts)	
+		assignTemp(".SystemFonts", sysfonts)
 	} else res <- character(0)
-	
+
 	if (default.styles) {	# Define default styles
 		## These are the four default Font themes one can use
 		assignTemp(".FontsStyleClassic", list(
@@ -187,7 +188,7 @@
 			BigTitle = list(family = c("Arial", "Helvetica"), size = -16, bold = TRUE),
 			Fixed = list(family = c("Courier New", "Courier"), size = -12)
 		))
-		
+
 		assignTemp(".FontsStyleAlternate", list(
 			Text = list(family = "Georgia", alt.family = "Times", size = -12),
 			Title = list(family = c("Trebuchet MS", "Trebuchet"),
@@ -196,7 +197,7 @@
 				alt.family = "Helvetica", size = -16, bold = TRUE),
 			Fixed = list(family = "Andale Mono", alt.family = "Courier", size = -12)
 		))
-		
+
 		assignTemp(".FontsStylePresentation", list(
 			Text = list(family = "Verdana", alt.family = "Helvetica", size = -12),
 			Title = list(family = "Verdana", alt.family = "Helvetica", size = -14,
@@ -206,7 +207,7 @@
 			Fixed = list(family = "Lucida Console", alt.family = "Courier",
 				size = -12)
 		))
-	
+
 		assignTemp(".FontsStyleFancy", list(
 			Text = list(family = c("Trebuchet MS", "Trebuchet"),
 				alt.family = "Helvetica", size = -12),
@@ -216,7 +217,7 @@
 				alt.family = "Helvetica", size = -16, bold = TRUE),
 			Fixed = list(family = "Lucida Console", alt.family = "Courier",
 				size = -12)
-		))	
+		))
 	}
 
 	if (text) {	# Set text, titles and fixed fonts
@@ -225,7 +226,7 @@
 		curSFonts <- getTemp(paste(".FontsStyle", curStyle, sep = ""),
 			default = getTemp(".FontsStyleClassic"))
 		assignTemp(".Fonts", curSFonts)
-		
+
 		# Create corresponding fonts in Tk (note, we create bold, italic, and
 		# bolditalic equivalents for TkTextFont and TkFixedFont
 		Fonts <- list()
@@ -249,7 +250,7 @@
 		Fonts$FixedItalic$italic <- TRUE
 		Fonts$FixedBoldItalic <- Fonts$FixedBold
 		Fonts$FixedBoldItalic$italic <- TRUE
-		
+
 		FNames <- c("TkTextFont", "TkTextBoldFont", "TkTextItalicFont",
 			"TkTextBoldItalicFont", "TkTitleFont", "TkBigTitleFont", "TkFixedFont",
 			"TkFixedBoldFont", "TkFixedItalicFont", "TkFixedBoldItalicFont")
@@ -259,5 +260,5 @@
 	if (system && any(!res))
 		warning("One or several Tk fonts not set: '",
 			paste(names(res)[!res], collapse = "', '", "'"))
-	return(res)			
+	return(res)
 }

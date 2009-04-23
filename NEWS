@@ -1,0 +1,35 @@
+tcltk2 news
+===========
+
+Version 1.0-8
+-------------
+- Most windows executables were removed. The rest is in /win and a configure.win
+  / cleanup mechanism is used to install them under Windows only.
+
+- BinaryFiles is added to declare these binaries.
+
+- An error preventing system fonts to load in tk2fonts is corrected (thanks to
+  B. Ripley).
+
+- When the package was installed on a path with spaces, the SystemFonts.exe
+  program was not executed properly under Windows. Quoting the command for
+  system() solved the problem (thanks to Pascal Hirsh).
+
+- Tile version of paned widget is disabled because it does not work any more
+  with R 2.9.0 - Tcl/Tk 8.5.
+
+
+Version 1.0-7
+-------------
+- Detection of systme fonts used under Windows.
+
+
+Version 1.0-6
+-------------
+- Complete rewrite of the package using tile and a larger series of additional
+  tk widgets.
+
+
+Version 0.9-5
+-------------
+- First version distributed on CRAN

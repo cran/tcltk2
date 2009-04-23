@@ -1,0 +1,5 @@
+cp -R win/bin inst
+
+cp -R win/tklibs/tile0.7.2 inst/tklibs
+cp -R win/tklibs/Tktable2.9 inst/tklibs
+cp -R win/tklibs/winico0.6 inst/tklibs
