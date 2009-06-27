@@ -14,7 +14,7 @@ There are different licenses for different parts of this package:
 the terms and conditions of version 3 of the GNU General Public
 License, supplemented by the additional permissions listed below.
 
-  0. Additional Definitions. 
+  0. Additional Definitions.
 
   As used herein, "this License" refers to version 3 of the GNU Lesser
 General Public License, and the "GNU GPL" refers to version 3 of the GNU
@@ -115,7 +115,7 @@ the following:
        a copy of the Library already present on the user's computer
        system, and (b) will operate properly with a modified version
        of the Library that is interface-compatible with the Linked
-       Version. 
+       Version.
 
    e) Provide Installation Information, but only if you would otherwise
    be required to provide such information under section 6 of the
@@ -866,8 +866,8 @@ name when you use it.
 === For the bwidget1.7 Tk Widgets ===
 
 BWidget ToolKit
-Copyright (c) 1998-1999 UNIFIX. 
-Copyright (c) 2001-2002 ActiveState Corp. 
+Copyright (c) 1998-1999 UNIFIX.
+Copyright (c) 2001-2002 ActiveState Corp.
 
 The following terms apply to all files associated with the software
 unless explicitly disclaimed in individual files.
@@ -897,7 +897,7 @@ MODIFICATIONS.
 
 GOVERNMENT USE: If you are acquiring this software on behalf of the
 U.S. government, the Government shall have only "Restricted Rights"
-in the software and related documentation as defined in the Federal 
+in the software and related documentation as defined in the Federal
 Acquisition Regulations (FARs) in Clause 52.227.19 (c) (2).  If you
 are acquiring the software on behalf of the Department of Defense, the
 software shall be classified as "Commercial Computer Software" and the
@@ -905,12 +905,53 @@ Government shall have only "Restricted Rights" as defined in Clause
 252.227-7013 (c) (1) of DFARs.  Notwithstanding the foregoing, the
 authors grant the U.S. Government and others acting in its behalf
 permission to use and distribute the software in accordance with the
-terms specified in this license. 
+terms specified in this license.
 
 
 === For the winico0.6 Tk Widgets ===
-There is no clear license statement. Here is the authors and copyright:
+  1.The "Software", below,refers to the "winico" extension for Tcl,developed by
+     Brueckner&Jarosch (in either source-code, object-code or executable-code
+     form), and related documentation, and a "work based on the Software" means
+     a work based on either the Software, on part of the Software, or on any
+     derivative work of the Software under copyright law: that is, a work
+     containing all or a portion of the "winico" extension, either verbatim or
+     with modifications. Each licensee is addressed as "you" or "Licensee."
 
-Authors: Leo Schubert, Brueckner&Jarosch Ing.-GmbH. Modifications by Pat Thoyts.
+  2.Brueckner&Jarosch holds copyrights in the Software.
+     The copyright holder reserves all rights
+     except those expressly granted to licensees, and German Government license
+     rights.
 
-Copyright © 1997-1998, Brueckner&Jarosch
+  3.Permission is hereby granted to use, copy, modify, and to redistribute to
+     others. If you distribute a copy or copies of the Software, or you modify
+     a copy or copies of the Software or any portion of it, thus forming a work
+     based on the Software, and make and/or distribute copies of such work, you
+     must meet the following conditions:
+
+       1.If you make a copy of the Software (modified or verbatim) it must
+         include the copyright notice and this license.
+
+       2.You must cause the modified Software to carry prominent notices
+         stating that you changed specified portions of the Software.
+
+  4.Disclaimer of warranty: Licensor provides the software on an ``as is''
+     basis. Licensor does not warrent, guarantee, or make any representations
+     regarding the use or results of the software with respect to its
+     correctness, accuracy, reliability or performance. The entire risk of the
+     use and performance of the software is assumed by licensee. ALL WARANTIES
+     INCLUDING, WITHOUT LIMITATION, ANY WARRANTY OF FITNESS FOR A PARTICULAR
+     PURPOSE OR MERCHANTABILITY ARE HEREBY EXCLUDED.
+
+  5.Lack of maintainance or support services: Licensee understands and agrees
+     that licensor is under no obligation to provide maintanance, support or
+     update services, notices of latent defects, or correction of defects for
+     the software.
+
+  6.Limitation of liability, indemnification: Even if advised of the
+     possibility of damages, under no circumstances shall licensor be liable to
+     licensee or any third party for damages of any character, including,
+     without limitation, direct, indirect, incidental, consequential or special
+     damages, loss of profits, loss of use, loss of goodwill, computer failure
+     or malfunction. Licensee agrees to indemnify and hold harmless licensor
+     for any and all liability licensor may incur as a result of licensee's use
+     of the software.

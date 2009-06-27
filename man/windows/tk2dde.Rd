@@ -30,7 +30,7 @@ tk2dde.request(service, topic, item, binary = FALSE)
     returned, otherwise, only available topics for a given service are listed }
   \item{command}{ A string with the command to run in the external application
     (syntax depends on the server) }
-  \item{async}{ Is a command run asynchroneously (returns immediatelly, before
+  \item{async}{ Is a command run asynchroneously (returns immediately, before
     the command is processed), or not? }
   \item{item}{ The concerned item (usually a variable name, a range in a
     worksheet, etc...) }
@@ -112,7 +112,8 @@ tclvalue(myvar2)
 #### DDE at the command line with execdde.exe ####
 # You can also change the value of a variable, or run a command in R from
 # the command line using execdde.exe:
-# - Copy \%R_Home\%\\library\\tcltk2\\bin\\execdde.exe somewhere in your path,
+# - Download execdde.exe from http://www.sciviews.org/SciViews-R/execdde.zip
+# - Unzip it and copy 'execdde.exe' somewhere in your path,
 # - Start a DOS window
 # - Enter the following commands ('>' is the prompt, don't type it):
 # > execdde -s TclEval -t R -c doDDE > NUL
@@ -236,7 +237,7 @@ tk2dde.request("iexplore", "WWW_GetWindowInfo", "1")
 tk2dde.exec("Folders", "AppProperties",
 	"{\[ViewFolder(\"C:\\\",\"C:\\\",5)\]}")
 # ... or you can also try 'ExplodeFolder'
-    
+
 # Search in folder
 tk2dde.exec("Folders", "AppProperties", "{\[FindFolder(\"\",\"C:\\\")\]}")
 }

@@ -143,21 +143,6 @@
 	}
 
 	if (system) {	# Set system fonts
-		# If we are under Windows, we have a better way to get system fonts
-		if (.Platform$OS.type == "windows") {
-			# Get the characteristics of Windows system fonts
-			sysfonts <- winSystemFonts()
-			# Change fonts in TK according to these settings
-			fonts <- c("TkClassicDefaultFont", "TkDefaultFont", "TkCaptionFont",
-				"TkSmallCaptionFont", "TkMenuFont", "TkStatusFont", "TkTooltipFont",
-				"TkHeadingFont", "TkIconFont")
-			settings <- sysfonts[c("default", "default", "caption", "smallcaption",
-				"menu", "status", "status", "status", "default")]
-			res <- tk2font.set(fonts, settings)
-			if (any(!res))
-				warning("One or several Tk fonts not set: '",
-					paste(names(res)[!res], collapse = "', '", "'"))
-		}
 		# We collect back system fonts settings (other values may be imposed by Tk)
 		sysfonts <- list(
 			defaultclassic = tk2font.get("TkClassicDefaultFont"),
@@ -170,12 +155,6 @@
 			heading = tk2font.get("TkHeadingFont"),
 			icon = tk2font.get(c("TkIconFont", "TkDefaultFont"))
 		)
-		if (.Platform$OS.type != "windows") {
-			# Define the other system fonts not defined yet by tile
-			res <- tk2font.set(c("TkSmallCaptionFont", "TkMenuFont", "TkStatusFont",
-				"TkIconFont"), list(sysfonts$smallcaption, sysfonts$menu,
-				sysfonts$status, sysfonts$icon))
-		}
 		# Make sure these are correctly defined
 		assignTemp(".SystemFonts", sysfonts)
 	} else res <- character(0)

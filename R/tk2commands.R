@@ -118,7 +118,7 @@ function(widget, state = c("normal", "disabled", "readonly")) {
 			.Tcl(paste("catch {", widget$ID, " configure -editable true}",  sep = ""))
 			tkconfigure(widget, state = state)
 		}
-	} 
+	}
 }
 
 "tk2insert.multi" <-
@@ -181,7 +181,7 @@ function(nb, tab) {
 			w$env$parent <- nb
             class(w) <- c("tk2notetab", "tk2container", "tkwin")
             return(w)
-        }    
+        }
     } else stop ("'nb' must be either a 'tk2notebook', or a 'ttk2notebook'")
 }
 
@@ -208,7 +208,7 @@ function(nb, tab) {
         # Plain Tk notebook
         .Tcl(paste("Notebook:raise ", nb$ID, " {", tab[1], "}", sep = ""))
 		return(invisible(tk2notetab.text(nb) == tab))
-    } else stop ("'nb' must be either a 'tk2notebook', or a 'ttk2notebook'")    
+    } else stop ("'nb' must be either a 'tk2notebook', or a 'ttk2notebook'")
 }
 
 "tk2notetab.text" <-
@@ -220,18 +220,18 @@ function(nb) {
     } else if (inherits(nb, "tk2notebook")) {
         # Plain Tk notebook
         return(tclvalue(.Tcl(paste("Notebook:current", nb$ID))))
-    } else stop ("'nb' must be either a 'tk2notebook', or a 'ttk2notebook'")    
+    } else stop ("'nb' must be either a 'tk2notebook', or a 'ttk2notebook'")
 }
 
 # Themes management
 "tk2theme.elements" <- function() {
 	if (!is.tile()) return(NULL)
-	return(as.character(.Tcl("style element names")))
+	return(as.character(.Tcl("ttk::style element names")))
 }
 
 "tk2theme.list" <- function() {
 	if (!is.tile()) return(NULL)
-	return(as.character(.Tcl("style theme names")))
+	return(as.character(.Tcl("ttk::style theme names")))
 }
 
 "tk2theme" <- function(theme = NULL) {
@@ -239,7 +239,7 @@ function(nb) {
     if (is.null(theme)) { # Get it
         res <- getOption("tk2theme")
     } else { # Set it to theme
-        .Tcl(paste("style theme use", theme)) # Better to use tile::setTheme?
+        .Tcl(paste("ttk::style theme use", theme)) # Better to use tile::setTheme?
         # And save current theme in option "tk2theme"
         options(tk2theme = theme)
         res <- theme
@@ -277,6 +277,8 @@ function() {
 
 "is.tile" <-
 function() {
+	# Tile, alias ttk widgets are automatically installed under Tk >= 8.5
+	if (as.numeric(.Tcl("set tcl_version")) >= 8.5) return(TRUE)
 	# Determine if tile is loaded, and if we want to use it
 	use.tile <- getOption("tcltk2.tile")
 	if (!is.null(use.tile) && !use.tile) return(FALSE)
@@ -288,15 +290,15 @@ function() {
 function(warn = TRUE) {
 	if (!is.tk()) return(FALSE) # Impossible to load tile if tk is not loaded
 	if (is.tile()) return(TRUE)	# Already loaded
-	
+
 	# We must take care of fonts synchronisation and other stuff like
 	# options(tcltk2.tile)
-	
+
 	# First delete all Tk* fonts created in Tcl/Tk (otherwise, loading of tile fails?!)
 	tkfonts <- as.character(tkfont.names())
 	tkfonts <-  tkfonts[grep("^Tk", tkfonts)]
 	for (font in tkfonts) tkfont.delete(font)
-	
+
 	# Try loading tile
 	if (inherits(tclRequire("tile", warn = warn), "tclObj")) {	# OK
 		# Finalize fonts
@@ -309,7 +311,7 @@ function(warn = TRUE) {
 		# Look for a place to find it
 		libs <- .libPaths()
 		for (lib in libs) {
-			fontfile <- file.path(lib, "tcltk2", "tklibs", "fonts.tcl")			
+			fontfile <- file.path(lib, "tcltk2", "tklibs", "fonts.tcl")
 			if (file.exists(fontfile)) {
 				tcl("source", fontfile)
 				break
@@ -319,12 +321,12 @@ function(warn = TRUE) {
 		tk2font.setstyle(system = TRUE, default.styles = TRUE, text = TRUE)
 		options(tcltk2.tile = FALSE)
 		return(FALSE)
-	}		
+	}
 }
 
 "tile.use" <-
 function(use.it = TRUE) {
 	options(tcltk2.tile = use.it)
 	# Indicate also for Tcl code what we want
-	if (use.it) .Tcl("set tile_use 1") else .Tcl("set tile_use 0")	
+	if (use.it) .Tcl("set tile_use 1") else .Tcl("set tile_use 0")
 }

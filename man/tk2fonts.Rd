@@ -10,7 +10,7 @@
   can edit entries, add or delete rows and columns, ....
 }
 \usage{
-tk2font.get(font, what = c("family", "size", "bold", "italic")) 
+tk2font.get(font, what = c("family", "size", "bold", "italic"))
 tk2font.set(font, settings)
 tk2font.setstyle(text = TRUE, system = FALSE, default.styles = FALSE)
 }
@@ -46,15 +46,11 @@ tk2font.setstyle(text = TRUE, system = FALSE, default.styles = FALSE)
 
 \author{ Philippe Grosjean <phgrosjean@sciviews.org> }
 
-#ifdef windows
-\seealso{ \code{\link{winSystemFonts}} }
-#endif
-
 \examples{
 \dontrun{
 ## These cannot be run by examples() but should be OK when pasted
 ## into an interactive R session with the tcltk package loaded
-# Refresh both text and system Tk fonts	
+# Refresh both text and system Tk fonts
 tk2font.setstyle(system = TRUE)
 # Get characteristics of the default font
 tk2font.get("TkDefaultFont")

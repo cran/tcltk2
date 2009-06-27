@@ -85,5 +85,4 @@ export(makeTclNames,
        tk2font.set,
        tk2font.setstyle,
        getLanguage,
-       setLanguage,
-       winSystemFonts)
+       setLanguage)

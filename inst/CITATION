@@ -7,9 +7,9 @@ citEntry(entry="Manual",
          address      = "Belgium",
          year         = version$year,
          url          = "http://www.sciviews.org/SciViews-R",
-         
-         textVersion = 
-         paste("Ph. Grosjean (", version$year, "). ", 
+
+         textVersion =
+         paste("Ph. Grosjean (", version$year, "). ",
                "tcltk2: additional Tcl/Tk widgets and commands for R. ",
                "see: http://www.sciviews.org/SciViews-R.",
                sep="")
