@@ -8,16 +8,14 @@ Description: A series of additional Tcl commands and Tk widgets with
         style and various functions (under Windows: DDE exchange,
         access to the registry and icon manipulation) to supplement the
         tcltk package
-Version: 1.1-4
-Date: 2010-09-31
+Version: 1.1-5
+Date: 2010-09-24
 Author: Philippe Grosjean
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 License: file LICENSE
 LazyLoad: yes
 URL: http://www.sciviews.org/SciViews-R
 BugReports: https://r-forge.r-project.org/tracker/?group_id=194
+Packaged: 2010-09-25 07:52:45 UTC; phgrosjean
 Repository: CRAN
-Repository/R-Forge/Project: sciviews
-Repository/R-Forge/Revision: 282
-Date/Publication: 2010-09-03 19:38:41
-Packaged: 2010-09-01 20:52:42 UTC; rforge
+Date/Publication: 2010-09-27 06:35:56
