@@ -35,8 +35,12 @@
 #include <shellapi.h>
 
 #ifndef GCL_HICON
-# define GCL_HICON (-14)
-#endif 
+#define GCL_HICON(-14)
+#endif
+
+#ifndef GCLP_HICON
+#define GCLP_HICON(-14)
+#endif
 
 #include <tk.h>
 #include <tkPlatDecls.h>
@@ -1020,7 +1024,7 @@ FreeIcoPtr(Tcl_Interp *interp, IcoInfo *icoPtr)
     }
     ckfree((char *) icoPtr);
 }
-static IcoInfo* GetIcoPtr(Tcl_Interp* interp,char* string){
+static IcoInfo* GetIcoPtr(Tcl_Interp* interp, char* string){
     IcoInfo *icoPtr;
     int id;
     char *end;
@@ -1662,10 +1666,10 @@ WinIcoCmd(ClientData clientData, Tcl_Interp *interp,
             result=SendMessage(h,WM_SETICON,iconsize,(LPARAM)hIcon);
         } else {
             if(iconsize==ICON_BIG){
-                result=SetClassLong(h,GCL_HICON,(LPARAM)hIcon);
+                result=SetClassLong(h,GCLP_HICON,(LPARAM)hIcon);
             } else {
                 /*don't permit small icons,bcause they remove the big ones*/
-                result=GetClassLong(h,GCL_HICON);
+                result=GetClassLong(h,GCLP_HICON);
             }
         }
         Tcl_SetObjResult(interp, Tcl_NewIntObj(result));
