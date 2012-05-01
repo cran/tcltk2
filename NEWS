@@ -1,9 +1,32 @@
 = tcltk2 news
 
-== Version 1.2-0
+== Version 1.2-3
+
+* The Tk configuration sequence in .onLoad() is changed. 
+
+
+== Version 1.2-2
+
+* For some reasons, version 1.2-1 on CRAN looks like version 1.2-0 on R-Forge.
+  This version is an update.
+
+* tk2ico.XXX() function change (incompatible changes for some of them!) due to
+  drop of winico.dll in favor of the full-Tcl 'ico' package. See ?tk2ico.set.
+
+
+== Version 1.2-1
+
+* The new ttk theme introduced in 1.2-0 have introduced a bug preventing the
+  tcltk2 package to load on Windows OS when 'cat' program is not available (this
+  bug was not catch by the test machines which had Rtools, and thus, 'cat',
+  installed). This bug appeared in the internal .isUbuntu() function. Fixed.
 
 * A couple of warnings for partial argument matching in tclTaskXXX() functions
   under R 2.15.0 are corrected.
+  
+* Documentation and demos for the tablelist Tk widgets are not distributed any
+  more in the tcltk2 package, to keep its size compatible with CRAN requirements
+  (no more than 5mb). Those are available from http://www.nemethi.de/.
   
 
 == Version 1.2-0
