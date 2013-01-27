@@ -1,7 +1,7 @@
 Package: tcltk2
 Type: Package
-Version: 1.2-3
-Date: 2012-05-01
+Version: 1.2-4
+Date: 2013-01-27
 Title: Tcl/Tk Additions
 Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
         email = "phgrosjean@sciviews.org"))
@@ -17,6 +17,6 @@ Description: A series of additional Tcl commands and Tk widgets with
 License: file LICENSE
 URL: http://www.sciviews.org/SciViews-R
 BugReports: https://r-forge.r-project.org/tracker/?group_id=194
-Packaged: 2012-05-01 21:23:50 UTC; phgrosjean
+Packaged: 2013-01-27 23:03:26 UTC; phgrosjean
 Repository: CRAN
-Date/Publication: 2012-05-02 06:37:13
+Date/Publication: 2013-01-28 07:48:31

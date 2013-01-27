@@ -139,9 +139,10 @@
     }
 }
 
-.Last.lib <- function (libpath)
+.onUnload <- function (libpath)
 {
-    ## Remove all currently scheduled tasks
+    # PhG: was .Last.lib()
+	## Remove all currently scheduled tasks
 	tclTaskDelete(id = NULL)
 }
 
@@ -271,12 +272,12 @@
 
 .TempEnv <- function ()
 {
-    pos <-  match("TempEnv", search())
+    pos <-  match("SciViews:TempEnv", search())
     if (is.na(pos)) {  # Must create it
-        TempEnv <- list()
-        attach(TempEnv, pos = length(search()) - 1)
-        rm(TempEnv)
-        pos <- match("TempEnv", search())
+        `SciViews:TempEnv` <- list()
+        attach(`SciViews:TempEnv`, pos = length(search()) - 1)
+        rm(`SciViews:TempEnv`)
+        pos <- match("SciViews:TempEnv", search())
     }
     return(pos.to.env(pos))
 }
