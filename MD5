@@ -1,7 +1,7 @@
-d7ba31143122737efd3e509c4166f719 *DESCRIPTION
-a84e23567eede78ef1baadd891dbde57 *LICENSE
+f69a10eb9c712e6b3dc04824efb2cdbf *DESCRIPTION
+cd9192db2a518dc45391dfb373eeffbe *LICENSE
 ac35e7ce3fb39d09081079626284a968 *NAMESPACE
-80d1e2bfe3d5ebdaa3702260c9ca4d88 *NEWS
+7e53cc163b908fb785aa9f09acee8fbb *NEWS
 7c23cfb68715f73ca4c9eee2d354be06 *R/tclTask.R
 ba9cd01b496afd4af34f352a80350827 *R/tclVarFun.R
 a3c3ec29e4170e775177725689b2f9dd *R/tcltk2-Internal.R
@@ -493,7 +493,7 @@ f97fa602af561e20fc5a4ac807c60989 *inst/tklibs/widget3.0/widget_toolbar.man
 32b1bc6c959ae3aee4fdbb7be5008df5 *man/setLanguage.Rd
 e0b11989d9343851c4992346f700b0e3 *man/tclTask.Rd
 88140e7c1d555fa74f55b6bf2587e332 *man/tclVarFun.Rd
-84fe4793f1526a13d3c06fda380498a0 *man/tcltk2-package.Rd
+8efcbee797690ddee1c56c1f5036b8dd *man/tcltk2-package.Rd
 7693262c515dfdb4864588856bcda756 *man/tk2commands.Rd
 0e385118c47cfab9e6c8d6f69aea4baf *man/tk2dialogs.Rd
 d6b1c42909acb248051728d3214bfccd *man/tk2edit.Rd
