@@ -1,5 +1,14 @@
 = tcltk2 news
 
+== Version 1.2-10
+
+* Reworked Author field in the DESCRIPTION file.
+
+* A bug in tk2listbox() and several other tk2XXX() widgets when it is not
+  possible to get fieldbackground color for the TEntry widget is corrected.
+  (thanks Jaime Egido)
+
+
 == Version 1.2-9
 
 * New theme handling introduced in version 1.2-8 resulted in an invisible caret
