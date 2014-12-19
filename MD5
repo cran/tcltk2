@@ -1,7 +1,7 @@
-b1a3c8ba4392befdbb3ef6235011848c *DESCRIPTION
+479661f7139334503a28fa3db15e188d *DESCRIPTION
 cd9192db2a518dc45391dfb373eeffbe *LICENSE
 1ac359be7fb8e2f5113ef54b82878a21 *NAMESPACE
-b1c31d852e2b1de206aa4edf97f05d5b *NEWS
+55e1197b23f1584f23f5603a8325bc8f *NEWS
 7c23cfb68715f73ca4c9eee2d354be06 *R/tclTask.R
 ba9cd01b496afd4af34f352a80350827 *R/tclVarFun.R
 3e25ca28c594a5e81842fa184e4054e1 *R/tcltk2-Internal.R
@@ -15,7 +15,7 @@ d4b49a77e1637c6b13c2a7aaac2cd2ac *R/tk2edit.R
 8261abfbc3785a4606c041f97738f32f *R/tk2reg.R
 0ba477d78d0ae5f1ef7eb6b81b5e0de5 *R/tk2swaplist.R
 490809c1ae1db0e82efc26014d957fc5 *R/tk2tip.R
-37fc807f42a0f97e210730c909dc5e70 *R/tk2widgets.R
+695d06597a76571e288c257e3d6cb3fe *R/tk2widgets.R
 9b9357a9c31b1856a8c582a3db0541b8 *TODO
 9ad96b84f192f7f1987dd3b5d6c9270e *inst/CITATION
 f80b7a9244ddb6ec743347ff3e009f80 *inst/Fonts.txt
@@ -577,14 +577,14 @@ f97fa602af561e20fc5a4ac807c60989 *inst/tklibs/widget3.0/widget_toolbar.man
 32b1bc6c959ae3aee4fdbb7be5008df5 *man/setLanguage.Rd
 e0b11989d9343851c4992346f700b0e3 *man/tclTask.Rd
 88140e7c1d555fa74f55b6bf2587e332 *man/tclVarFun.Rd
-5414c92c817bd914fb21ed05c0a22ee2 *man/tcltk2-package.Rd
+e1c429ce68ec6e64de78f0993446f278 *man/tcltk2-package.Rd
 496704ed1e30fd515a5c145225a3fc26 *man/tk2commands.Rd
 f57104480548a26bf7e43e25310b4365 *man/tk2dialogs.Rd
 d6b1c42909acb248051728d3214bfccd *man/tk2edit.Rd
 60e10ef4237402ebd642727019b14e8e *man/tk2fonts.Rd
 a897d18bb713bd9b57fecaa48ef9783a *man/tk2methods.Rd
 90a0eb7e1b72cedbec269c9d927a3b1d *man/tk2tip.Rd
-3cac780711e613f0c6062777755d338c *man/tk2widgets.Rd
+87a60ccdc3d91b5a84747920a1d7b253 *man/tk2widgets.Rd
 f2c3d073dd58e1c9670d941a46bb917d *man/unix/tk2dde.Rd
 8433a4891c3bf4e2c8c4aa8bdce3ceca *man/unix/tk2ico.Rd
 d021aa839274449b50d60cd76bd82160 *man/unix/tk2reg.Rd
