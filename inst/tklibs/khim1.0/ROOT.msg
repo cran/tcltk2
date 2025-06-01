@@ -8,7 +8,7 @@
 # use and redistribution of this file, and a DISCLAIMER OF ALL WARRANTEES.
 #
 # $Id: ROOT.msg,v 1.2 2006/09/05 18:52:22 kennykb Exp $
-# $Source: /cvsroot/tcllib/tklib/modules/khim/ROOT.msg,v $
+# $Source: /home/rkeene/tmp/cvs2fossil/tcllib/tklib/modules/khim/ROOT.msg,v $
 #
 #----------------------------------------------------------------------
 

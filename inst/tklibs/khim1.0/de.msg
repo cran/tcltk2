@@ -8,7 +8,7 @@
 # use and redistribution of this file, and a DISCLAIMER OF ALL WARRANTEES.
 #
 # $Id: de.msg,v 1.2 2006/09/07 13:18:13 kennykb Exp $
-# $Source: /cvsroot/tcllib/tklib/modules/khim/de.msg,v $
+# $Source: /home/rkeene/tmp/cvs2fossil/tcllib/tklib/modules/khim/de.msg,v $
 #
 #----------------------------------------------------------------------
 

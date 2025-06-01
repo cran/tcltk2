@@ -9,7 +9,7 @@
 # use and redistribution of this file, and a DISCLAIMER OF ALL WARRANTEES.
 #
 # $Id: es.msg,v 1.3 2008/05/30 02:00:19 kennykb Exp $
-# $Source: /cvsroot/tcllib/tklib/modules/khim/es.msg,v $
+# $Source: /home/rkeene/tmp/cvs2fossil/tcllib/tklib/modules/khim/es.msg,v $
 #
 #----------------------------------------------------------------------
 

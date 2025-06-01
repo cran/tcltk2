@@ -11,7 +11,7 @@
 # use and redistribution of this file, and a DISCLAIMER OF ALL WARRANTEES.
 #
 # $Id: ru.msg,v 1.1 2007/06/08 19:24:31 kennykb Exp $
-# $Source: /cvsroot/tcllib/tklib/modules/khim/ru.msg,v $
+# $Source: /home/rkeene/tmp/cvs2fossil/tcllib/tklib/modules/khim/ru.msg,v $
 #
 #----------------------------------------------------------------------
 
